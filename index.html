@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vo Quoc Vuong — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.97/build/spline-viewer.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f9f9;
+      --white: #ffffff;
+      --primary: #0058bc;
+      --primary-2: #00a3ff;
+      --on-surface: #1a1c1c;
+      --on-variant: #414755;
+      --secondary: #515f78;
+      --outline: #717786;
+      --outline-variant: #c1c6d7;
+      --surface-low: #f3f3f4;
+      --chip-primary-bg: rgba(0,88,188,0.1);
+      --chip-primary-text: #0058bc;
+      --chip-secondary-bg: #d2e0fe;
+      --chip-secondary-text: #55637d;
+      --chip-mono-bg: #f3f3f4;
+      --chip-mono-text: #1a1c1c;
+      --glass: rgba(255,255,255,0.4);
+      --glass-border: rgba(0,88,188,0.1);
+      --max: 1216px;
+      --gutter: 32px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--on-surface);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: var(--primary); text-decoration: none; }
+
+    .grad-text {
+      background: linear-gradient(135deg, #0058bc 0%, #00a3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,249,249,0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(193,198,215,0.1);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 var(--gutter);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 80px; position: relative;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.5rem; color: var(--primary); letter-spacing: -0.025em; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-links a { font-size: 1rem; font-weight: 400; color: var(--secondary); transition: color .2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-hire {
+      background: var(--primary); color: #fff;
+      padding: 0.5rem 1.5rem; border-radius: 999px;
+      font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em;
+      transition: opacity .2s;
+    }
+    .nav-hire:hover { opacity: .88; color: #fff; }
+
+    /* ─── HERO ─── */
+    .hero {
+      max-width: var(--max); margin: 0 auto;
+      padding: 120px var(--gutter) 80px;
+      display: flex; gap: 64px; align-items: center;
+    }
+    .hero-left { flex: 0 0 544px; display: flex; flex-direction: column; gap: 22px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(210,224,254,0.3);
+      padding: 6px 16px; border-radius: 999px; width: fit-content;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #00ff7f; flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(0,255,127,0.6);
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .badge-text { font-size: 0.75rem; font-weight: 500; color: var(--primary); letter-spacing: 0.05em; text-transform: uppercase; }
+    .hero h1 { font-size: 4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; color: var(--on-surface); }
+    .hero-sub { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; }
+    .hero-desc { font-size: 1.125rem; color: var(--on-variant); line-height: 1.6; }
+    .hero-cta { display: flex; gap: 16px; padding-top: 17px; }
+    .btn-solid {
+      background: linear-gradient(135deg, #0058bc, #00a3ff);
+      color: #fff; padding: 16px 32px; border-radius: 12px;
+      font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em;
+      transition: opacity .2s;
+    }
+    .btn-solid:hover { opacity: .88; color: #fff; }
+    .btn-outline {
+      border: 1px solid var(--primary); color: var(--primary);
+      padding: 15px 33px; border-radius: 12px;
+      font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em;
+      background: transparent; transition: background .2s;
+    }
+    .btn-outline:hover { background: rgba(0,88,188,0.05); }
+
+    /* ─── HERO ACCORDION (hover to expand) ─── */
+    .hero-acc {
+      position: relative;
+      margin-top: 10px;
+      border: 1px dashed rgba(26,28,28,0.22);
+    }
+    .hero-acc .acc-corner {
+      position: absolute; width: 22px; height: 22px;
+      border-color: var(--on-surface); border-style: solid; border-width: 0;
+      z-index: 2; pointer-events: none;
+    }
+    .hero-acc .acc-corner.tl { top: -2px; left: -2px; border-top-width: 3px; border-left-width: 3px; }
+    .hero-acc .acc-corner.tr { top: -2px; right: -2px; border-top-width: 3px; border-right-width: 3px; }
+    .hero-acc .acc-corner.bl { bottom: -2px; left: -2px; border-bottom-width: 3px; border-left-width: 3px; }
+    .hero-acc .acc-corner.br { bottom: -2px; right: -2px; border-bottom-width: 3px; border-right-width: 3px; }
+
+    .acc-item { position: relative; padding: 30px 32px 26px; }
+    .acc-item + .acc-item { border-top: 1px dashed rgba(26,28,28,0.22); }
+    .acc-title {
+      font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1;
+      text-transform: uppercase; color: var(--on-surface);
+    }
+    .acc-label { font-size: 0.95rem; font-weight: 400; color: #9b9ba1; margin-top: 12px; }
+    .acc-body-wrap {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height .45s ease, opacity .35s ease, margin .35s ease;
+    }
+    .acc-item:hover .acc-body-wrap,
+    .acc-item.open .acc-body-wrap { max-height: 240px; opacity: 1; margin-top: 18px; }
+    .acc-body { font-size: 1.06rem; color: var(--on-variant); line-height: 1.5; max-width: 78%; }
+    .acc-toggle {
+      position: absolute; right: 28px; bottom: 24px;
+      width: 42px; height: 42px; border-radius: 3px;
+      border: 1px solid #d9d9de; background: transparent; color: var(--on-surface);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .35s ease, border-color .25s ease;
+    }
+    .acc-item:hover .acc-toggle,
+    .acc-item.open .acc-toggle { transform: rotate(180deg); border-color: #b5b5bd; }
+    .acc-toggle svg { width: 18px; height: 18px; }
+
+    .hero-right { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
+    .hero-photo-glow {
+      position: absolute; inset: -16px; border-radius: 999px;
+      background: rgba(0,88,188,0.1); filter: blur(32px); opacity: 0.6;
+    }
+    .hero-photo {
+      position: relative; width: 380px; aspect-ratio: 2/3;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      background: #e8eef8;
+    }
+    .hero-photo img { width:100%; height:100%; object-fit:cover; object-position:top; }
+
+    /* ─── ABOUT ME ─── */
+    .about-section {
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 var(--gutter) 80px;
+    }
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 49px;
+    }
+    .about-inner { display: flex; gap: 48px; align-items: flex-start; }
+    .about-title-col {
+      flex: 0 0 356px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .about-heading {
+      font-size: 2rem; font-weight: 600; letter-spacing: -0.02em;
+      line-height: 1.3; position: relative;
+    }
+    .about-heading::before {
+      content: '';
+      position: absolute; inset: -15px -16px; border-radius: 999px;
+      background: rgba(0,88,188,0.2); filter: blur(20px); opacity: 0.5;
+    }
+
+    /* Spline viewer — overflow hidden clips the watermark */
+    .about-spline {
+      width: 100%; height: 320px;
+      border-radius: 20px; overflow: hidden;
+      background: transparent;
+    }
+    /* Extend viewer height so watermark scrolls below overflow boundary */
+    .about-spline spline-viewer {
+      width: 100%;
+      height: calc(100% + 48px);
+      display: block;
+    }
+
+    .about-content-col { flex: 1; display: flex; flex-direction: column; gap: 24px; }
+    .about-para { font-size: 1.125rem; color: var(--on-surface); line-height: 1.625; }
+    .about-para-2 { font-size: 1.125rem; color: var(--on-variant); line-height: 1.625; }
+    .about-meta { display: flex; gap: 16px; align-items: center; padding-top: 16px; flex-wrap: wrap; }
+    .about-meta-item { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 1rem; }
+    .about-meta-item svg { flex-shrink: 0; }
+
+    /* ─── MARQUEE ─── */
+    .marquee-section {
+      background: rgba(243,243,244,0.3);
+      backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(193,198,215,0.2);
+      border-bottom: 1px solid rgba(193,198,215,0.2);
+      overflow: hidden; position: relative; padding: 0;
+      margin-bottom: 50px;
+    }
+    .marquee-section::before, .marquee-section::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+    }
+    .marquee-section::before { left: 0; background: linear-gradient(to right, rgba(249,249,249,0.9), transparent); }
+    .marquee-section::after  { right: 0; background: linear-gradient(to left, rgba(249,249,249,0.9), transparent); }
+    .marquee-track {
+      display: flex; width: max-content;
+      animation: marquee 28s linear infinite;
+      padding: 1.1rem 0;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .stack-item {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 500; color: var(--secondary);
+      padding: 0 2rem; white-space: nowrap;
+      border-right: 1px solid rgba(193,198,215,0.4);
+    }
+    .stack-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+
+    /* ─── METRICS ─── */
+    .metrics-section { max-width: var(--max); margin: 0 auto; padding: 48px var(--gutter); }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .metric { text-align: center; padding-bottom: 12px; }
+    .metric-val { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+    .metric-lbl { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-variant); margin-top: 4px; }
+
+    /* ─── SECTION WRAPPER ─── */
+    .section { max-width: var(--max); margin: 0 auto; padding: 80px var(--gutter); }
+    .sec-label { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary); margin-bottom: 7px; }
+    .sec-title { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0; }
+    .sec-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
+    .sec-divider { flex: 1; height: 1px; background: rgba(193,198,215,0.3); margin: 0 48px 16px; }
+
+    /* ─── PROJECTS – HORIZONTAL SCROLL ─── */
+    .chip-primary { background: rgba(0,88,188,0.1); color: #0058bc; font-size: 0.8rem; font-weight: 500; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.05em; }
+    .chip-secondary { background: #d2e0fe; color: #55637d; font-size: 0.8rem; font-weight: 500; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.05em; }
+    .chip-mono { background: #f3f3f4; color: #1a1c1c; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 4px 12px; border-radius: 4px; }
+
+    .projects-scroll-wrapper { position: relative; height: calc(100vh + 1800px); }
+    .projects-sticky {
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+      display: flex; flex-direction: column; padding: 80px 32px 48px;
+    }
+    .projects-header {
+      max-width: 1216px; width: 100%; margin: 0 auto 40px;
+      display: flex; align-items: flex-end;
+    }
+    .projects-header-hint {
+      margin-left: auto; font-size: 0.875rem; color: #717786;
+      display: flex; align-items: center; gap: 8px; padding-bottom: 4px;
+    }
+    .projects-track-outer {
+      flex: 1; overflow: hidden; display: flex; align-items: stretch;
+      padding: 0 calc((100vw - 1216px) / 2);
+    }
+    .projects-track {
+      display: flex; gap: 20px; align-items: stretch;
+      will-change: transform; transition: transform 0.05s linear; padding-right: 40px;
+    }
+    .proj-card {
+      flex: 0 0 420px; background: rgba(255,255,255,0.4); backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,88,188,0.1); border-radius: 20px; overflow: hidden;
+      display: flex; flex-direction: column; transition: box-shadow .3s, transform .3s;
+    }
+    .proj-card:hover { box-shadow: 0 12px 48px rgba(0,88,188,0.12); transform: translateY(-4px); }
+    .proj-thumb { width: 100%; height: 200px; object-fit: cover; object-position: center; display: block; background: #e8eef8; flex-shrink: 0; }
+    .proj-body { padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .proj-title-row { display: flex; align-items: flex-start; justify-content: space-between; }
+    .proj-name { font-size: 1.25rem; font-weight: 700; color: #1a1c1c; line-height: 1.3; }
+    .proj-link { color: #0058bc; display: inline-flex; align-items: center; flex-shrink: 0; margin-top: 2px; transition: opacity .2s; }
+    .proj-link:hover { opacity: .7; }
+    .proj-desc { font-size: 0.9375rem; color: #414755; line-height: 1.6; flex: 1; }
+    .proj-chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+    .proj-gh { display: flex; align-items: center; gap: 6px; color: #0058bc; font-size: 0.875rem; padding-top: 8px; transition: opacity .2s; }
+    .proj-gh:hover { opacity: .7; }
+    .projects-progress {
+      max-width: 1216px; margin: 16px auto 0; width: 100%; height: 2px;
+      background: rgba(193,198,215,0.3); border-radius: 999px; overflow: hidden;
+    }
+    .projects-progress-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #0058bc, #00a3ff);
+      border-radius: 999px; transition: width 0.05s linear;
+    }
+
+    /* ─── COMMUNITY ─── */
+    .community-cards { display: flex; flex-direction: column; gap: 24px; }
+    .community-card {
+      display: flex; gap: 24px; align-items: center;
+      background: var(--white); border: 1px solid rgba(193,198,215,0.25);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+      padding: 16px;
+    }
+    .community-card:hover {
+      box-shadow: 0 14px 48px rgba(0,88,188,0.16);
+      transform: translateY(-6px);
+      border-color: rgba(0,88,188,0.35);
+    }
+    .community-card:hover .cc-image img { transform: scale(1.06); }
+    .community-card.reverse { flex-direction: row-reverse; }
+    .cc-text {
+      flex: 1; min-width: 0; align-self: stretch; padding: 24px 28px;
+      display: flex; flex-direction: column; gap: 14px; justify-content: flex-start;
+    }
+    .cc-org { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; color: var(--on-surface); line-height: 1.2; }
+    .cc-role-chip {
+      display: inline-flex; align-items: center;
+      padding: 4px 12px; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      width: fit-content;
+    }
+    .chip-intern    { background: rgba(0,163,255,0.12); color: #0077cc; }
+    .chip-builder   { background: rgba(0,200,120,0.12); color: #009a5a; }
+    .chip-cm        { background: rgba(120,80,220,0.12); color: #7050dc; }
+    .chip-technical { background: rgba(0,88,188,0.10);  color: #0058bc; }
+    .cc-desc { font-size: 1rem; color: var(--on-variant); line-height: 1.65; }
+    .cc-achv { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }
+    .cc-achv-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--secondary); }
+    .cc-achv ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .cc-achv li { position: relative; padding-left: 24px; font-size: 0.95rem; color: var(--on-variant); line-height: 1.5; }
+    .cc-achv li svg { position: absolute; left: 0; top: 5px; color: #f5b301; flex: none; }
+    .cc-handle {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.875rem; font-weight: 500; color: var(--primary);
+      margin-top: 4px; transition: opacity .2s;
+    }
+    .cc-handle:hover { opacity: .7; }
+    .cc-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cc-socials { display: inline-flex; align-items: center; gap: 10px; flex: none; }
+    .cc-icon { display: inline-flex; align-items: center; color: var(--primary); transition: opacity .2s; flex: none; }
+    .cc-icon svg { width: 24px; height: 24px; }
+    .cc-icon:hover { opacity: .7; }
+    .cc-image {
+      flex: 0 0 45%; max-width: 45%; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 14px;
+    }
+    .cc-image img { width:100%; height:auto; display:block; border-radius:14px; transition: transform .4s ease; }
+
+    /* ─── ACTIVITIES / COVERFLOW ─── */
+    .activities-section {
+      max-width: none; width: 100%; margin: 0;
+      padding: 96px var(--gutter) 104px;
+      background: linear-gradient(180deg, var(--surface-low) 0%, var(--bg) 100%);
+      overflow: hidden;
+    }
+    .activities-inner { max-width: var(--max); margin: 0 auto; }
+
+    .coverflow {
+      position: relative;
+      height: 320px;
+      perspective: 1500px;
+      margin-top: 8px;
+      user-select: none;
+      touch-action: pan-y;
+    }
+    .cf-stage {
+      position: absolute; inset: 0;
+      transform-style: preserve-3d;
+    }
+    .cf-card {
+      position: absolute; top: 50%; left: 50%;
+      width: 440px; height: 248px;            /* 16:9 landscape */
+      margin: -124px 0 0 -220px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface-low) center/cover no-repeat;
+      box-shadow: 0 24px 50px rgba(26,28,28,0.22);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(0) translateZ(-600px) rotateY(0) scale(.6);
+      transition: transform .5s ease, opacity .5s ease;
+      will-change: transform, opacity;
+    }
+    .cf-card.is-visible { opacity: 1; pointer-events: auto; }
+    /* dimming overlay for non-active cards (light theme) */
+    .cf-card::after {
+      content: ""; position: absolute; inset: 0;
+      background: rgba(249,249,249,0.5);
+      transition: opacity .5s ease;
+      opacity: 1;
+      z-index: 2;
+    }
+    .cf-card.is-active {
+      cursor: default;
+      box-shadow: 0 30px 70px rgba(0,88,188,0.28);
+    }
+    .cf-card.is-active::after { opacity: 0; }
+
+    .cf-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block; z-index: 0;
+      pointer-events: none;
+    }
+    /* title shown softly on hover only */
+    .cf-hover {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+      padding: 36px 20px 18px;
+      background: linear-gradient(to top, rgba(4,8,16,0.78) 0%, rgba(4,8,16,0.25) 55%, rgba(4,8,16,0) 100%);
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .35s ease, transform .35s ease;
+      pointer-events: none;
+    }
+    .cf-card:hover .cf-hover { opacity: 1; transform: translateY(0); }
+    .cf-hover-title {
+      font-size: 1.05rem; font-weight: 600; letter-spacing: -.01em;
+      color: #fff; line-height: 1.25;
+    }
+
+    /* arrows */
+    .cf-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 20; width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none;
+      border-radius: 50%; color: var(--primary); cursor: pointer;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .cf-arrow:hover { opacity: .6; }
+    .cf-arrow.prev { left: 8px; }
+    .cf-arrow.next { right: 8px; }
+    .cf-arrow:active { transform: translateY(-50%) scale(.92); }
+    .cf-arrow svg { width: 26px; height: 26px; }
+
+    /* dots */
+    .cf-dots { display: flex; justify-content: center; gap: 10px; margin-top: 36px; }
+    .cf-dot {
+      width: 9px; height: 9px; border-radius: 999px;
+      background: var(--outline-variant); border: none; padding: 0; cursor: pointer;
+      transition: width .35s ease, background .35s ease;
+    }
+    .cf-dot.is-active { width: 30px; background: var(--primary); }
+
+    /* ─── CONTACT ─── */
+    .contact-section { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 80px; }
+    .contact-card {
+      background: var(--glass); backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); border-radius: 48px;
+      padding: 80px 81px 97px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      max-width: 768px; margin: 0 auto;
+    }
+    .contact-title { font-size: 4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; color: var(--on-surface); margin-bottom: 22px; }
+    .contact-sub { font-size: 1.125rem; color: var(--on-variant); line-height: 1.6; margin-bottom: 25px; }
+    .contact-form { width: 100%; max-width: 448px; display: flex; flex-direction: column; gap: 24px; text-align: left; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; color: var(--on-variant); }
+    .form-input {
+      background: transparent; border: none; border-bottom: 1px solid var(--outline-variant);
+      padding: 14px 0 15px; font-family: 'Outfit', sans-serif; font-size: 1rem;
+      color: var(--on-surface); outline: none; width: 100%; transition: border-color .2s;
+    }
+    .form-input::placeholder { color: #6b7280; }
+    .form-input:focus { border-color: var(--primary); }
+    .form-group:last-of-type { padding-bottom: 32px; }
+    .btn-cta {
+      width: 100%; background: linear-gradient(135deg, #0058bc, #00a3ff);
+      color: #fff; border: none; border-radius: 16px;
+      padding: 20px; font-family: 'Outfit', sans-serif;
+      font-size: 1rem; cursor: pointer; font-weight: 400;
+      box-shadow: 0 10px 15px -3px rgba(0,88,188,0.2), 0 4px 6px -4px rgba(0,88,188,0.2);
+      transition: opacity .2s;
+    }
+    .btn-cta:hover { opacity: .88; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: rgba(249,249,249,0.5);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(193,198,215,0.1);
+    }
+    .footer-inner {
+      max-width: var(--max); margin: 0 auto;
+      padding: 48px var(--gutter);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 4px; }
+    .footer-logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    .footer-copy { font-size: 1rem; color: var(--on-variant); }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { font-size: 1rem; color: var(--on-variant); transition: color .2s; }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* ─── FADE ─── */
+    .fade { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s ease; }
+    .fade.in { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; gap: 3rem; padding-top: 60px; }
+      .hero-left { flex: none; width: 100%; }
+      .about-inner { flex-direction: column; }
+      .about-title-col { flex: none; width: 100%; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .projects-scroll-wrapper { height: auto; }
+      .projects-sticky { position: relative; height: auto; padding: 60px 20px 40px; }
+      .projects-header { flex-direction: column; gap: 8px; margin-bottom: 24px; }
+      .projects-header-hint { display: none; }
+      .projects-track-outer { padding: 0; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+      .projects-track { padding-right: 20px; }
+      .proj-card { flex: 0 0 300px; scroll-snap-align: start; }
+      .projects-progress { display: none; }
+      .community-card, .community-card.reverse { flex-direction: column; }
+      .cc-image { flex: none; width: 100%; max-width: 100%; }
+      .coverflow { height: 240px; }
+      .cf-card { width: 300px; height: 169px; margin: -84px 0 0 -150px; }
+      .cf-arrow { width: 44px; height: 44px; }
+      .cf-arrow.prev { left: -4px; }
+      .cf-arrow.next { right: -4px; }
+      .contact-card { padding: 48px 32px 60px; }
+      .nav-links a:not(.nav-hire) { display: none; }
+      .footer-inner { flex-direction: column; gap: 2rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">VQV</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#community">Community</a>
+      <a href="#activities">Activities</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero fade">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span class="badge-text">Available for new ventures</span>
+    </div>
+    <h1 class="grad-text">Vo Quoc Vuong</h1>
+
+    <div class="hero-acc">
+      <span class="acc-corner tl"></span><span class="acc-corner tr"></span>
+      <span class="acc-corner bl"></span><span class="acc-corner br"></span>
+
+      <div class="acc-item">
+        <div class="acc-title">Developer</div>
+        <div class="acc-label">Description</div>
+        <div class="acc-body-wrap">
+          <p class="acc-body">A full-stack developer working with React, Next.js, Node and TypeScript. From REST APIs and scalable backends to smart contracts, Ethers.js and wallet integrations—I turn ideas into high-performance, real-world Web3 products.</p>
+        </div>
+        <button class="acc-toggle" aria-label="Toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-title">Community Builder</div>
+        <div class="acc-label">Description</div>
+        <div class="acc-body-wrap">
+          <p class="acc-body">Beyond code, I grow Web3 communities running AMAs, builder onboarding and ecosystem content across Vietnam, turning curious newcomers into active builders.</p>
+        </div>
+        <button class="acc-toggle" aria-label="Toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-glow"></div>
+    <div class="hero-photo">
+      <img src="assets/avatar.png" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- STACK MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="stack-item"><span class="stack-dot"></span>Java 17+</span>
+    <span class="stack-item"><span class="stack-dot"></span>Spring Boot</span>
+    <span class="stack-item"><span class="stack-dot"></span>Solidity</span>
+    <span class="stack-item"><span class="stack-dot"></span>Javascript</span>
+    <span class="stack-item"><span class="stack-dot"></span>NodeJS</span>
+    <span class="stack-item"><span class="stack-dot"></span>PostgreSQL</span>
+    <span class="stack-item"><span class="stack-dot"></span>ReactJS</span>
+    <span class="stack-item"><span class="stack-dot"></span>NextJS</span>
+    <span class="stack-item"><span class="stack-dot"></span>Java 17+</span>
+    <span class="stack-item"><span class="stack-dot"></span>Spring Boot</span>
+    <span class="stack-item"><span class="stack-dot"></span>NodeJS</span>
+    <span class="stack-item"><span class="stack-dot"></span>Javascript</span>
+    <span class="stack-item"><span class="stack-dot"></span>MySQL</span>
+    <span class="stack-item"><span class="stack-dot"></span>PostgreSQL</span>
+    <span class="stack-item"><span class="stack-dot"></span>ReactJS</span>
+    <span class="stack-item"><span class="stack-dot"></span>NextJS</span>
+  </div>
+</div>
+
+<!-- ABOUT ME -->
+<div class="about-section" id="about">
+  <div class="glass-card fade">
+    <div class="about-inner">
+      <div class="about-title-col">
+        <div class="about-heading grad-text">About Me</div>
+        <div class="about-spline">
+          <spline-viewer url="https://prod.spline.design/pAHRuqefs7btcBWi/scene.splinecode"></spline-viewer>
+        </div>
+      </div>
+      <div class="about-content-col">
+        <p class="about-para">I'm a third-year IT student at Dong A University, based in Da Nang, applying for Hub Administrator position at Da Nang Blockchain Hub.</p>
+        <p class="about-para-2">Beyond my technical background in Web3 development, I have hands-on experience building and managing crypto communities as a Community Manager at DEGEN Research and Intern at Renaiss TCG VietNam and Arc Vietnam Builders. These roles sharpened my communication, coordination and member onboarding skills in a fast-paced Web3 environment.</p>
+        <p class="about-para-2">I'm organized, service-minded and genuinely passionate about the local Web3 scene. I would love to contribute as the operational backbone of the Hub and help create a welcoming space for builders in Da Nang.</p>
+        <div class="about-meta">
+          <div class="about-meta-item">
+            <svg width="20" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            <a href="https://donga.edu.vn/">Dong A University</a>
+          </div>
+          <div class="about-meta-item">
+            <svg width="20" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            Full-stack Aspirant
+          </div>
+          <div class="about-meta-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <a href="https://www.google.com/maps/place/%C4%90.+2+Th%C3%A1ng+9,+%C4%90%C3%A0+N%E1%BA%B5ng,+Vi%E1%BB%87t+Nam/@16.0440509,108.2204947,17z/data=!3m1!4b1!4m6!3m5!1s0x314219cf864109a1:0xae486547f322b52b!8m2!3d16.0440509!4d108.2230696!16s%2Fg%2F1td4glyn?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D">Da Nang, Viet Nam</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- METRICS -->
+<div class="metrics-section">
+  <div class="metrics-grid">
+    <div class="metric fade">
+      <div class="metric-val grad-text">3+</div>
+      <div class="metric-lbl">Years Coding</div>
+    </div>
+    <div class="metric fade" style="transition-delay:.08s">
+      <div class="metric-val grad-text">5+</div>
+      <div class="metric-lbl">Projects Personal</div>
+    </div>
+    <div class="metric fade" style="transition-delay:.16s">
+      <div class="metric-val grad-text">2+</div>
+      <div class="metric-lbl">Community Builder</div>
+    </div>
+    <div class="metric fade" style="transition-delay:.24s">
+      <div class="metric-val grad-text">2+</div>
+      <div class="metric-lbl">Web3 Experience</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS – HORIZONTAL SCROLL -->
+<div class="projects-scroll-wrapper" id="projects">
+  <div class="projects-sticky">
+    <div class="projects-header">
+      <div>
+        <div class="sec-label">Showcase</div>
+        <div class="sec-title">Explore Projects</div>
+      </div>
+      <div class="projects-header-hint">
+        Scroll to explore
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </div>
+
+    <div class="projects-track-outer">
+      <div class="projects-track" id="projectsTrack">
+
+        <div class="proj-card">
+          <img src="assets/startup_student.jpg" alt="Student Startup Platform" class="proj-thumb">
+          <div class="proj-body">
+            <div class="proj-title-row">
+              <div class="proj-name">Student Startup Platform</div>
+              <a href="https://github.com/NguyenHieuDavitDev/ICO-Startup" target="_blank" class="proj-link" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.188.6.111.82-.254.82-.567 0-.28-.01-1.022-.015-2.005-3.338.711-4.042-1.582-4.042-1.582-.546-1.361-1.335-1.725-1.335-1.725-1.087-.731.084-.716.084-.716 1.205.082 1.838 1.215 1.838 1.215 1.07 1.803 2.809 1.282 3.495.981.108-.763.417-1.282.76-1.577-2.665-.295-5.466-1.309-5.466-5.827 0-1.287.465-2.339 1.235-3.164-.135-.298-.54-1.497.105-3.121 0 0 1.005-.316 3.3 1.209.96-.262 1.98-.392 3-.398 1.02.006 2.04.136 3 .398 2.28-1.525 3.285-1.209 3.285-1.209.645 1.624.24 2.823.12 3.121.765.825 1.23 1.877 1.23 3.164 0 4.53-2.805 5.527-5.475 5.817.42.354.81 1.077.81 2.182 0 1.578-.015 2.846-.015 3.229 0 .315.21.689.825.573C20.565 21.917 24 17.495 24 12.292 24 5.78 18.627.5 12 .5z"/></svg></a>
+            </div>
+            <div class="proj-desc">A platform for fundraising and dividend distribution for student startups on Ethereum (Sepolia).</div>
+            <div class="proj-chips">
+              <span class="chip-primary">Solidity</span>
+              <span class="chip-primary">Hardhat</span>
+              <span class="chip-primary">Ethers.js</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <img src="assets/student_manager.png" alt="Student Management" class="proj-thumb">
+          <div class="proj-body">
+            <div class="proj-title-row">
+              <div class="proj-name">Student Management</div>
+              <a href="https://github.com/vxxngw/studentmanager" target="_blank" class="proj-link" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.188.6.111.82-.254.82-.567 0-.28-.01-1.022-.015-2.005-3.338.711-4.042-1.582-4.042-1.582-.546-1.361-1.335-1.725-1.335-1.725-1.087-.731.084-.716.084-.716 1.205.082 1.838 1.215 1.838 1.215 1.07 1.803 2.809 1.282 3.495.981.108-.763.417-1.282.76-1.577-2.665-.295-5.466-1.309-5.466-5.827 0-1.287.465-2.339 1.235-3.164-.135-.298-.54-1.497.105-3.121 0 0 1.005-.316 3.3 1.209.96-.262 1.98-.392 3-.398 1.02.006 2.04.136 3 .398 2.28-1.525 3.285-1.209 3.285-1.209.645 1.624.24 2.823.12 3.121.765.825 1.23 1.877 1.23 3.164 0 4.53-2.805 5.527-5.475 5.817.42.354.81 1.077.81 2.182 0 1.578-.015 2.846-.015 3.229 0 .315.21.689.825.573C20.565 21.917 24 17.495 24 12.292 24 5.78 18.627.5 12 .5z"/></svg></a>
+            </div>
+            <div class="proj-desc">A student management system with CRUD operations, information management, data search and classification, built with Spring Boot and SQL Server.</div>
+            <div class="proj-chips">
+              <span class="chip-secondary">WebSocket</span>
+              <span class="chip-secondary">Spring Boot</span>
+              <span class="chip-secondary">SQL Server</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <img src="assets/ecommerce.jpg" alt="E-Commerce" class="proj-thumb">
+          <div class="proj-body">
+            <div class="proj-title-row">
+              <div class="proj-name">E-Commerce</div>
+              <a href="https://github.com/vxxngw/E-Portfolio.git" target="_blank" class="proj-link" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.188.6.111.82-.254.82-.567 0-.28-.01-1.022-.015-2.005-3.338.711-4.042-1.582-4.042-1.582-.546-1.361-1.335-1.725-1.335-1.725-1.087-.731.084-.716.084-.716 1.205.082 1.838 1.215 1.838 1.215 1.07 1.803 2.809 1.282 3.495.981.108-.763.417-1.282.76-1.577-2.665-.295-5.466-1.309-5.466-5.827 0-1.287.465-2.339 1.235-3.164-.135-.298-.54-1.497.105-3.121 0 0 1.005-.316 3.3 1.209.96-.262 1.98-.392 3-.398 1.02.006 2.04.136 3 .398 2.28-1.525 3.285-1.209 3.285-1.209.645 1.624.24 2.823.12 3.121.765.825 1.23 1.877 1.23 3.164 0 4.53-2.805 5.527-5.475 5.817.42.354.81 1.077.81 2.182 0 1.578-.015 2.846-.015 3.229 0 .315.21.689.825.573C20.565 21.917 24 17.495 24 12.292 24 5.78 18.627.5 12 .5z"/></svg></a>
+            </div>
+            <div class="proj-desc">An e-commerce website interface with product display, shopping cart features, and a modern, responsive-optimized user experience.</div>
+            <div class="proj-chips">
+              <span class="chip-secondary">HTML</span>
+              <span class="chip-secondary">CSS</span>
+              <span class="chip-secondary">MongoDB</span>
+              <span class="chip-secondary">JWT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <img src="assets/inventory.jpg" alt="Inventory Management" class="proj-thumb">
+          <div class="proj-body">
+            <div class="proj-title-row">
+              <div class="proj-name">Inventory Management API</div>
+              <a href="https://github.com/vxxngw/Express_HW_03" target="_blank" class="proj-link" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.188.6.111.82-.254.82-.567 0-.28-.01-1.022-.015-2.005-3.338.711-4.042-1.582-4.042-1.582-.546-1.361-1.335-1.725-1.335-1.725-1.087-.731.084-.716.084-.716 1.205.082 1.838 1.215 1.838 1.215 1.07 1.803 2.809 1.282 3.495.981.108-.763.417-1.282.76-1.577-2.665-.295-5.466-1.309-5.466-5.827 0-1.287.465-2.339 1.235-3.164-.135-.298-.54-1.497.105-3.121 0 0 1.005-.316 3.3 1.209.96-.262 1.98-.392 3-.398 1.02.006 2.04.136 3 .398 2.28-1.525 3.285-1.209 3.285-1.209.645 1.624.24 2.823.12 3.121.765.825 1.23 1.877 1.23 3.164 0 4.53-2.805 5.527-5.475 5.817.42.354.81 1.077.81 2.182 0 1.578-.015 2.846-.015 3.229 0 .315.21.689.825.573C20.565 21.917 24 17.495 24 12.292 24 5.78 18.627.5 12 .5z"/></svg></a>
+            </div>
+            <div class="proj-desc">Built a RESTful API for warehouse management with product CRUD operations, request handling, and database connectivity using Node.js and Express.</div>
+            <div class="proj-chips">
+              <span class="chip-secondary">Node.js</span>
+              <span class="chip-secondary">Express</span>
+              <span class="chip-secondary">MongoDB</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMMUNITY -->
+<div class="section" id="community">
+  <div class="sec-row" style="margin-bottom:48px">
+    <div>
+      <div class="sec-label">Ecosystem / Employment</div>
+      <div class="sec-title">Building Communities That Scale</div>
+    </div>
+    <div class="sec-divider"></div>
+  </div>
+
+  <div class="community-cards">
+
+    <div class="community-card fade">
+      <div class="cc-text">
+        <div class="cc-head">
+          <div class="cc-org">RENAISS TCG VIỆT NAM</div>
+          <div class="cc-socials">
+            <a href="https://twitter.com/_renaiss_tcg" target="_blank" class="cc-icon" aria-label="X (@_renaiss_tcg)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.836L1.254 2.25H8.08l4.259 5.632 5.905-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://t.me/renaissvietnam" target="_blank" class="cc-icon" aria-label="Telegram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.27 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.86.42z"/></svg>
+            </a>
+          </div>
+        </div>
+        <span class="cc-role-chip chip-intern">Community Intern</span>
+        <p class="cc-desc">Renaiss Unofficial Viet Nam Community - First Liquidity Infrastructure of Physical Collectibles.</p>
+        <div class="cc-achv">
+          <div class="cc-achv-title">Achievements:</div>
+          <ul>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Grew the Telegram community to 250+ members and Twitter to 1.5K+ followers.</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Generated 75.8K+ impressions through community and social media activities.</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Successfully hosted AMA sessions with 50+ participants.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cc-image"><img src="assets/renaiss.png" alt=""></div>
+    </div>
+
+    <div class="community-card reverse fade" style="transition-delay:.08s">
+      <div class="cc-text">
+        <div class="cc-head">
+          <div class="cc-org">ARC VIETNAM BUILDERS</div>
+          <div class="cc-socials">
+            <a href="https://twitter.com/ArcVietnamBuilders" target="_blank" class="cc-icon" aria-label="X (@ArcVietnamBuilders)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.836L1.254 2.25H8.08l4.259 5.632 5.905-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://t.me/ArcVNBuilders" target="_blank" class="cc-icon" aria-label="Telegram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.27 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.86.42z"/></svg>
+            </a>
+          </div>
+        </div>
+        <span class="cc-role-chip chip-technical">Technical Intern</span>
+        <p class="cc-desc">Unofficial Arc Vietnam community focused on supporting builders, fostering connections and expanding the ecosystem in Vietnam.</p>
+        <div class="cc-achv">
+          <div class="cc-achv-title">Achievements:</div>
+          <ul>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Developed Builder 101 onboarding tutorials for new community members.</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Organized and coordinated Twitter engagement campaigns and community raids to increase brand visibility.</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Moderated community discussions and provided member support.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cc-image"><img src="assets/arcvn.png" alt=""></div>
+    </div>
+
+    <div class="community-card reverse fade" style="transition-delay:.24s">
+      <div class="cc-text">
+        <div class="cc-head">
+          <div class="cc-org">DEGEN INSIGHTS</div>
+          <div class="cc-socials">
+            <a href="https://x.com/Degen_NFT_VN" target="_blank" class="cc-icon" aria-label="X (@Degen_NFT_VN)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.836L1.254 2.25H8.08l4.259 5.632 5.905-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://t.me/DegenNFTVN" target="_blank" class="cc-icon" aria-label="Telegram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.27 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.86.42z"/></svg>
+            </a>
+          </div>
+        </div>
+        <span class="cc-role-chip chip-cm">Community Manager</span>
+        <p class="cc-desc">Quản lý cộng đồng crypto high-growth, tập trung vào các chiến lược engagement, phân tích token và tạo nội dung alpha research cho các dự án on-chain.</p>
+        <div class="cc-achv">
+          <div class="cc-achv-title">Achievements:</div>
+          <ul>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Collaborated with NFT projects and Web3 products to secure whitelist allocations and exclusive opportunities for Vietnamese Community.</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Researched and Analyzed alpha projects Web3, NFT and on-chain ecosystem trends.</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Created educational content, project breakdowns and ecosystem reports for Vietnamese Community.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cc-image"><img src="assets/banner_1.png" alt=""></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ACTIVITIES -->
+<div class="activities-section" id="activities">
+  <div class="activities-inner">
+    <div class="sec-row fade" style="margin-bottom:40px">
+      <div>
+        <div class="sec-label">Activities</div>
+      </div>
+      <div class="sec-divider"></div>
+    </div>
+
+    <div class="coverflow fade" id="coverflow" style="transition-delay:.08s">
+      <button class="cf-arrow prev" id="cfPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="cf-stage" id="cfStage">
+        <div class="cf-card"><img src="assets/banner_2.jpg" alt="VietNam University Cardano Workshop"></div>
+        <div class="cf-card"><img src="assets/ama_renaiss.png" alt="Community Call on Server Renaiss Protocol"></div>
+        <div class="cf-card"><img src="assets/amaX_renaiss.png" alt="AMA on X Space Renaiss Protocol"></div>
+        <div class="cf-card"><img src="assets/meetup.jpg" alt="Meetup Web3 Da Nang"></div>
+        <div class="cf-card"><img src="assets/collab_1.jpg" alt="Collab & Partner with NFT projects"></div>
+        <div class="cf-card"><img src="assets/collab_2.jpg" alt="Collab & Partner with NFT projects"></div>
+      </div>
+      <button class="cf-arrow next" id="cfNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="cf-dots" id="cfDots"></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-card fade">
+    <h2 class="contact-title">Plant a Seed with me</h2>
+    <p class="contact-sub">Whether you're looking for a technical architect or a community strategist,<br/>let's build the next layer of the web together.</p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label class="form-label" for="fname">NAME</label>
+        <input class="form-input" id="fname" type="text" placeholder="Your Name" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="femail">EMAIL</label>
+        <input class="form-input" id="femail" type="email" placeholder="your@email.com" required/>
+      </div>
+      <button type="submit" class="btn-cta">Let's Build Something Together</button>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">VQV</div>
+      <div class="footer-copy">© 2024 Vo Quoc Vuong. Crafted with precision.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/vxxngw" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/vuong-vo-quoc-962606243/" target="_blank">LinkedIn</a>
+      <a href="#" target="_blank">Discord</a>
+      <a href="https://x.com/DG_doodles" target="_blank">Twitter</a>
+      <a href="https://t.me/vxxngw" target="_blank">Telegram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelector('.hero.fade')?.classList.add('in'), 80);
+
+  // Hero accordion — hover expands via CSS; click toggle is a fallback for touch devices
+  (function () {
+    const items = Array.from(document.querySelectorAll('.hero-acc .acc-item'));
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        items.forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  })();
+
+  // Projects horizontal scroll
+  (function () {
+    const wrapper = document.getElementById('projects');
+    const track   = document.getElementById('projectsTrack');
+    const bar     = document.getElementById('projectsProgressBar');
+    if (!wrapper || !track) return;
+
+    function update() {
+      if (window.innerWidth <= 900) { track.style.transform = ''; return; }
+      const rect       = wrapper.getBoundingClientRect();
+      const scrollable = wrapper.offsetHeight - window.innerHeight;
+      let progress     = scrollable > 0 ? (-rect.top) / scrollable : 0;
+      progress = Math.min(Math.max(progress, 0), 1);
+      const maxShift   = Math.max(track.scrollWidth - track.parentElement.clientWidth, 0);
+      track.style.transform = `translateX(${-progress * maxShift}px)`;
+      if (bar) bar.style.width = (progress * 100) + '%';
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  // Activities — 3D Coverflow Carousel (image only)
+  (function () {
+    const stage = document.getElementById('cfStage');
+    const dotsWrap = document.getElementById('cfDots');
+    if (!stage || !dotsWrap) return;
+
+    const cf = document.getElementById('coverflow');
+
+    const GAP = 300;          // horizontal spacing (px)
+    const DEPTH = 170;        // translateZ pushback per step
+    const ROT = 38;           // rotateY (deg)
+    const AUTOPLAY = 3500;
+
+    // read the <img> cards written directly in the HTML
+    const cards = Array.from(stage.querySelectorAll('.cf-card'));
+    if (!cards.length) return;
+    const N = cards.length;
+    let active = 0;
+    let timer = null;
+
+    // add the soft hover title (from each image's alt) + click-to-activate
+    cards.forEach((card, i) => {
+      const img = card.querySelector('img');
+      const title = img ? (img.getAttribute('alt') || '') : '';
+      if (title && !card.querySelector('.cf-hover')) {
+        const hover = document.createElement('div');
+        hover.className = 'cf-hover';
+        hover.innerHTML = '<div class="cf-hover-title"></div>';
+        hover.querySelector('.cf-hover-title').textContent = title;
+        card.appendChild(hover);
+      }
+      card.addEventListener('click', () => { if (i !== active) go(i); });
+    });
+
+    // build dots
+    const dots = cards.map((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'cf-dot';
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      d.addEventListener('click', () => go(i));
+      dotsWrap.appendChild(d);
+      return d;
+    });
+
+    function render() {
+      const visible = Math.min(2, Math.floor((N - 1) / 2)); // keep ring seamless
+      cards.forEach((card, i) => {
+        // circular (wrap-around) offset: shortest signed distance on the ring
+        let offset = i - active;
+        if (offset > N / 2) offset -= N;
+        if (offset < -N / 2) offset += N;
+        const abs = Math.abs(offset);
+        if (abs > visible) {
+          card.classList.remove('is-visible', 'is-active');
+          card.style.transform =
+            `translateX(${Math.sign(offset) * GAP * (visible + 1)}px) translateZ(-700px) rotateY(${offset > 0 ? -ROT : ROT}deg) scale(.5)`;
+          return;
+        }
+        card.classList.add('is-visible');
+        card.classList.toggle('is-active', offset === 0);
+        const x = offset * GAP;
+        const z = -abs * DEPTH;
+        const ry = offset === 0 ? 0 : (offset > 0 ? -ROT : ROT);
+        const scale = offset === 0 ? 1 : 0.86 - (abs - 1) * 0.06;
+        card.style.zIndex = String(100 - abs);
+        card.style.transform =
+          `translateX(${x}px) translateZ(${z}px) rotateY(${ry}deg) scale(${scale})`;
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
+    }
+
+    function go(i) {
+      active = (i + N) % N;
+      render();
+      restart();
+    }
+    const next = () => go(active + 1);
+    const prev = () => go(active - 1);
+
+    function restart() {
+      clearInterval(timer);
+      if (N > 1) timer = setInterval(next, AUTOPLAY);
+    }
+
+    // arrows
+    document.getElementById('cfNext').addEventListener('click', next);
+    document.getElementById('cfPrev').addEventListener('click', prev);
+
+    // keyboard (only when section is in view)
+    window.addEventListener('keydown', (e) => {
+      const r = cf.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
+
+    // touch / swipe
+    let startX = null;
+    cf.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    cf.addEventListener('touchend', (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 45) { dx < 0 ? next() : prev(); }
+      startX = null;
+    });
+
+    // pause autoplay on hover
+    cf.addEventListener('mouseenter', () => clearInterval(timer));
+    cf.addEventListener('mouseleave', restart);
+
+    render();
+    restart();
+  })();
+
+  // Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name  = document.getElementById('fname').value;
+    const email = document.getElementById('femail').value;
+    window.location.href = `mailto:vuongvo2207@gmail.com?subject=Hello from ${encodeURIComponent(name)}&body=Email: ${encodeURIComponent(email)}`;
+  }
+</script>
+</body>
+</html>
