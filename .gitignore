@@ -1,0 +1,9 @@
+# Claude Code local settings (machine-local, do not track)
+.claude/
+
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
